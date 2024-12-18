@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DaftarTontonan;
 use Illuminate\Http\Request;
 
 class DaftarTontonanController extends Controller
@@ -11,7 +12,9 @@ class DaftarTontonanController extends Controller
      */
     public function index()
     {
-        //
+        $data['daftar_tontonan']= DaftarTontonan::orderBy('id', 'asc')->paginate(3);
+        $data['judul']="Data Daftar Tontonan";
+        return view('daftar_tontonan_index', $data);
     }
 
     /**
@@ -19,7 +22,9 @@ class DaftarTontonanController extends Controller
      */
     public function create()
     {
-        //
+        
+        $data['list_status']=['Sedang Menonton', 'Selesai'];
+        return view('daftar_tontonan_create', $data);
     }
 
     /**
@@ -27,7 +32,18 @@ class DaftarTontonanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'daftar_tontonan' => 'required',
+            'judul' => 'required',
+            'status' => 'required'
+            ]);
+    
+            $daftar_tontonan = new \App\Models\DaftarTontonan();
+            $daftar_tontonan->daftar_tontonan = $request->daftar_tontonan;
+            $daftar_tontonan->judul = $request->judul;
+            $daftar_tontonan->status = $request->status;
+            $daftar_tontonan->save();
+            return back()->with('pesan', 'Data sudah Disimpan');
     }
 
     /**
@@ -43,7 +59,9 @@ class DaftarTontonanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['daftar_tontonan']= \App\Models\DaftarTontonan::findOrFail($id);
+        $data['list_status']=['Sedang Menonton', 'Selesai'];
+        return view('daftartontonan_edit', $data);
     }
 
     /**
@@ -51,7 +69,18 @@ class DaftarTontonanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'daftar_tontonan' => 'required',
+            'judul' => 'required',
+            'status' => 'required'
+        ]);
+        $daftar_tontonan = \App\Models\DaftarTontonan::findOrFail($id);
+        $daftar_tontonan->daftar_tontonan = $request->daftar_tontonan;
+        $daftar_tontonan->judul = $request->judul;
+        $daftar_tontonan->status = $request->status;
+        $daftar_tontonan->save();
+
+        return redirect('/daftar tontonan')->with('pesan','Data sudah Diupdate');
     }
 
     /**
@@ -59,6 +88,8 @@ class DaftarTontonanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $daftar_tontonan= \App\Models\DaftarTontonan::findOrFail($id);
+        $daftar_tontonan->delete();
+        return back()->with('pesan','Data Sudah Dihapus');
     }
 }

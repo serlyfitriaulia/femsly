@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FilmAktor;
 use Illuminate\Http\Request;
 
 class FilmAktorController extends Controller
@@ -11,7 +12,9 @@ class FilmAktorController extends Controller
      */
     public function index()
     {
-        //
+        $data['film_aktor']= FilmAktor::orderBy('id', 'asc')->paginate(3);
+        $data['judul']="Data Film Aktor";
+        return view('film_aktor_index', $data);
     }
 
     /**
@@ -19,7 +22,11 @@ class FilmAktorController extends Controller
      */
     public function create()
     {
-        //
+        $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as
+        tampil")->pluck('tampil', 'id');
+        $data['list_aktor'] = \App\Models\Aktor::selectRaw("id, concat(judul) as
+        tampil")->pluck('tampil', 'id');
+        
     }
 
     /**
@@ -27,7 +34,18 @@ class FilmAktorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul' => 'required',
+            'id_film' => 'required',
+            'id_aktor' => 'required',
+            
+            ]);
+    
+            $film_aktor = new \App\Models\FilmAktor();
+            $film_aktor->judul = $request->judul;
+            $film_aktor->id_film = $request->id_aktor;
+            $film_aktor->save();
+            return back()->with('pesan', 'Data sudah Disimpan');
     }
 
     /**
@@ -43,7 +61,9 @@ class FilmAktorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['film_aktor']= \App\Models\FilmAktor::findOrFail($id);
+       
+        return view('film_aktor_edit', $data);
     }
 
     /**

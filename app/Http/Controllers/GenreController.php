@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class GenreController extends Controller
@@ -11,7 +12,10 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $data['genre']= Genre::orderBy('id', 'asc')->paginate(3);
+        $data['nama']="Nama Genre";
+        return view('genre_index', $data);
+
     }
 
     /**
@@ -19,7 +23,9 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        $data['list_genre'] = \App\Models\Genre::selectRaw("id, concat(nama) as
+        tampil")->pluck('tampil', 'id');
+        
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Film;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -11,7 +12,10 @@ class FilmController extends Controller
      */
     public function index()
     {
-        //
+        $data['film']= Film::orderBy('id', 'asc')->paginate(3);
+        $data['judul']="Data film";
+        return view('film_index', $data);
+
     }
 
     /**
@@ -19,7 +23,10 @@ class FilmController extends Controller
      */
     public function create()
     {
-        //
+        $data['list_genre'] = \App\Models\Genre::selectRaw("id, concat(nama) as
+        tampil")->pluck('tampil', 'id');
+        
+        
     }
 
     /**
@@ -27,7 +34,23 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'genre_id' => 'required',
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'tahun_rilis' => 'required',
+            'rating' => 'required'
+
+            ]);
+    
+            $film = new \App\Models\Film();
+            $film->genre_id = $request->genre_id;
+            $film->judul = $request->judul;
+            $film->deskripsi = $request->deskripsi;
+            $film->tahun_rilis = $request->tahun_rilis;
+            $film->rating = $request->rating;
+            $film->save();
+            return back()->with('pesan', 'Data sudah Disimpan');
     }
 
     /**
@@ -43,7 +66,9 @@ class FilmController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['film']= \App\Models\Film::findOrFail($id);
+        $data['judul']=['Umum', 'Kandungan','Anak','THT'];
+        return view('film_edit', $data);
     }
 
     /**

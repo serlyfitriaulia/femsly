@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('films', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('genre_id')->constrained('genre')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('genre_id')->constrained('genres')->onDelete('cascade')->onUpdate('cascade');
             $table->string('judul');
             $table->text('deskripsi');
             $table->year('tahun_rilis');

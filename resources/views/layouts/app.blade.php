@@ -30,7 +30,44 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <li class="nav-item">
+                            @auth
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pilih</a>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="{{ url('film', []) }}">Film</a></li>
+                                  <li><a class="dropdown-item" href="{{ url('film/create', []) }}">Tambah Film</a></li>
+                                  <li>
+                                    <hr class="dropdown-divider">
+                                  </li>
+                                  <li><a class="dropdown-item" href="{{ url('aktor', []) }}">Aktor</a></li>
+                                  <li><a class="dropdown-item" href="{{ url('aktor/create', []) }}">Tambah Aktor</a></li>
+                                  <li>
+                                    <hr class="dropdown-divider">
+                                  </li>
+                                  <li><a class="dropdown-item" href="{{ url('film_aktor', []) }}">film Aktor</a></li>
+                                  <li><a class="dropdown-item" href="{{ url('film-_aktor/create', []) }}">Tambah Film Aktor</a></li>
+                                  <li>
+                                    <hr class="dropdown-divider">
+                                  </li>
+                                  <li><a class="dropdown-item" href="{{ url('daftar_tontonan', []) }}">Daftar Tontonan</a></li>
+                                  <li><a class="dropdown-item" href="{{ url('daftar_tontonan/create', []) }}">Tambah Daftar Tontonan</a></li>
+                                  <li>
+                                    <hr class="dropdown-divider">
+                                  </li>
+                                  <li><a class="dropdown-item" href="{{ url('genre', []) }}">Genre</a></li>
+                                  <li><a class="dropdown-item" href="{{ url('genre/create', []) }}">Tambah Genre</a></li>
+                                  <li>
+                                    <hr class="dropdown-divider">
+                                  </li>
+                                  <li><a class="dropdown-item" href="{{ url('ulasan', []) }}">Ulasan</a></li>
+                                  <li><a class="dropdown-item" href="{{ url('ulasan/create', []) }}">Tambah Ulasan</a></li>
+                                  <li>
+                                    <hr class="dropdown-divider">
+                                  </li>
+                            @endauth
+                          </li>
+                          
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,6 +110,11 @@
         </nav>
 
         <main class="py-4">
+            @if(Session::has('pesan'))
+                <div class="alert alert-primary" role="alert">
+                    {{ Session::get('pesan') }}
+                </div>  
+            @endif
             @yield('content')
         </main>
     </div>

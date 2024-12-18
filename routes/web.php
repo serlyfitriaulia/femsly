@@ -1,6 +1,15 @@
 <?php
 
+use App\Models\Aktor;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AktorController;
+use App\Http\Controllers\DaftarTontonanController;
+use App\Http\Controllers\FilmAktorController;
+use App\Http\Controllers\FilmController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\UlasanController;
+use App\Models\DaftarTontonan;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +29,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function(){
+Route::resource('aktor', AktorController::class);
+Route::resource('daftar_tontonan', DaftarTontonanController::class);
+Route::resource('film_aktor', FilmAktorController::class);
+Route::resource('film', FilmController::class);
+Route::resource('genre', GenreController::class);
+Route::resource('ulasan', UlasanController::class);
+
+});
