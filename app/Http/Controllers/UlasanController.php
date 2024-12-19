@@ -14,7 +14,7 @@ class UlasanController extends Controller
     {
         $data['ulasan']= Ulasan::orderBy('id', 'asc')->paginate(3);
         $data['judul']="Data Ulasan";
-        return view('ulasan_index', $data);
+        return view('ulasan.ulasan_index', $data);
 
     }
 
@@ -24,7 +24,7 @@ class UlasanController extends Controller
     public function create()
     {
         $data['list_rating']=['1','2','3','4','5'];
-        return view('ulasan_create', $data);
+        return view('ulasan.ulasan_create', $data);
     }
 
     /**
@@ -33,17 +33,19 @@ class UlasanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            '' => 'required',
-            'tanggal_lahir' => 'required',
-            'bio' => 'required',
-            'foto_url' => 'required',
+            'user_id' => 'required',
+            'film_id' => 'required',
+            'rating' => 'required',
+            'komentar' => 'required',
             ]);
     
-            $dokter = new \App\Models\Aktor();
-            $dokter->nama = $request->nama;
-            $dokter->tanggal_lahir = $request->tanggal_lahir;
-            $dokter->bio = $request->bio;
-            $dokter->save();
+            $ulasan = new \App\Models\Aktor();
+            $ulasan->user_id = $request->user_id;
+            $ulasan->film_id = $request->film_id;
+            $ulasan->rating = $request->rating;
+            $ulasan->komentar = $request->komentar;
+
+            $ulasan->save();
             return back()->with('pesan', 'Data sudah Disimpan');
     }
 
@@ -60,9 +62,9 @@ class UlasanController extends Controller
      */
     public function edit(string $id)
     {
-        $data['aktor']= \App\Models\Aktor::findOrFail($id);
-        $data['list_genre']=['Action', 'Mystery','Romance','Horor','Comedy','Fantasy','Family','Thriller','Drama'];
-        return view('aktor_edit', $data);
+        $data['ulasan']= \App\Models\Ulasan::findOrFail($id);
+        $data['list_rating']=['1', '2', '3', '4', '5'];
+        return view('ulasan.ulasan_edit', $data);
     }
 
     /**
@@ -71,19 +73,20 @@ class UlasanController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama' => 'required',
-            'tanggal_lahir' => 'required',
-            'bio' => 'required'
+           'user_id' => 'required',
+            'film_id' => 'required',
+            'rating' => 'required',
+            'komentar' => 'required',
             
         ]);
-        $aktor = \App\Models\Aktor::findOrFail($id);
-        $aktor->nama = $request->nama;
-        $aktor->tanggal_lahir = $request->tanggal_lahir;
-        $aktor->bio = $request->bio;
-        $aktor->foto_url = $request->foto_url;
-        $aktor->save();
+        $ulasan = \App\Models\Ulasan::findOrFail($id);
+        $ulasan->user_id = $request->user_id;
+        $ulasan->film_id = $request->film_id;
+        $ulasan->rating = $request->rating;
+        $ulasan->komentar = $request->komentar;
+        $ulasan->save();
 
-        return redirect('/aktor')->with('pesan','Data sudah Diupdate');
+        return redirect('/ulasan')->with('pesan','Data sudah Diupdate');
     }
 
     /**
@@ -91,8 +94,8 @@ class UlasanController extends Controller
      */
     public function destroy(string $id)
     {
-        $aktor= \App\Models\Aktor::findOrFail($id);
-        $aktor->delete();
+        $ulasan= \App\Models\Ulasan::findOrFail($id);
+        $ulasan->delete();
         return back()->with('pesan','Data Sudah Dihapus');
     }
 }

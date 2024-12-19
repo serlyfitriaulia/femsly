@@ -1,5 +1,5 @@
-@extends('layouts.sbadmin2')
-@section('isinya')
+@extends('layouts.app')
+@section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -40,7 +40,7 @@
                         <div class="form-group">
                             <label for="my-select">Status</label>
                             <select id="my-select" class="form-control" name="status">
-                                @foreach ($list_sp as $a)
+                                @foreach ($list_status as $a)
                                 <option value="{{ $a }}" @selected($a==old('status'))>{{ $a }}
                                 </option>
                                 @endforeach

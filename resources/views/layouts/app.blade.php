@@ -33,41 +33,66 @@
                         <li class="nav-item">
                             @auth
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pilih</a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Film
+                                </a>
                                 <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="{{ url('film', []) }}">Film</a></li>
-                                  <li><a class="dropdown-item" href="{{ url('film/create', []) }}">Tambah Film</a></li>
-                                  <li>
-                                    <hr class="dropdown-divider">
-                                  </li>
-                                  <li><a class="dropdown-item" href="{{ url('aktor', []) }}">Aktor</a></li>
-                                  <li><a class="dropdown-item" href="{{ url('aktor/create', []) }}">Tambah Aktor</a></li>
-                                  <li>
-                                    <hr class="dropdown-divider">
-                                  </li>
-                                  <li><a class="dropdown-item" href="{{ url('film_aktor', []) }}">film Aktor</a></li>
-                                  <li><a class="dropdown-item" href="{{ url('film-_aktor/create', []) }}">Tambah Film Aktor</a></li>
-                                  <li>
-                                    <hr class="dropdown-divider">
-                                  </li>
-                                  <li><a class="dropdown-item" href="{{ url('daftar_tontonan', []) }}">Daftar Tontonan</a></li>
-                                  <li><a class="dropdown-item" href="{{ url('daftar_tontonan/create', []) }}">Tambah Daftar Tontonan</a></li>
-                                  <li>
-                                    <hr class="dropdown-divider">
-                                  </li>
-                                  <li><a class="dropdown-item" href="{{ url('genre', []) }}">Genre</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('film', []) }}">Film</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('film/create', []) }}">Tambah Film</a></li>
+                                </ul>
+                              </li>
+
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Genre
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url('genre', []) }}">Genre</a></li>
                                   <li><a class="dropdown-item" href="{{ url('genre/create', []) }}">Tambah Genre</a></li>
-                                  <li>
-                                    <hr class="dropdown-divider">
-                                  </li>
-                                  <li><a class="dropdown-item" href="{{ url('ulasan', []) }}">Ulasan</a></li>
-                                  <li><a class="dropdown-item" href="{{ url('ulasan/create', []) }}">Tambah Ulasan</a></li>
-                                  <li>
-                                    <hr class="dropdown-divider">
-                                  </li>
+                                </ul>
+                              </li>
+
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Aktor
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url('aktor', []) }}">Aktor</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('aktor/create', []) }}">Tambah Aktor</a></li>
+                                </ul>
+                              </li>
+
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Film Aktor
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url('film_aktor', []) }}">film Aktor</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('film_aktor/create', []) }}">Tambah Film Aktor</a></li>
+                                </ul>
+                              </li>
+
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Daftar Tontonan
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url('daftar_tontonan', []) }}">Daftar Tontonan</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('daftar_tontonan/create', []) }}">Tambah Daftar Tontonan</a></li>
+                                </ul>
+                              </li>
+
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Ulasan
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ url('ulasan', []) }}">Ulasan</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('ulasan/create', []) }}">Tambah Ulasan</a></li>
+                                </ul>
+                              </li>
                             @endauth
-                          </li>
-                          
+                          </li> 
                     </ul>
 
                     <!-- Right Side Of Navbar -->

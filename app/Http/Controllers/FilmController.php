@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Film;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilmController extends Controller
 {
@@ -14,7 +15,7 @@ class FilmController extends Controller
     {
         $data['film']= Film::orderBy('id', 'asc')->paginate(3);
         $data['judul']="Data film";
-        return view('film_index', $data);
+        return view('film.film_index', $data);
 
     }
 
@@ -26,7 +27,7 @@ class FilmController extends Controller
         $data['list_genre'] = \App\Models\Genre::selectRaw("id, concat(nama) as
         tampil")->pluck('tampil', 'id');
         
-        
+        return view('film.film_create',$data);
     }
 
     /**
@@ -39,7 +40,8 @@ class FilmController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'tahun_rilis' => 'required',
-            'rating' => 'required'
+            'rating' => 'required',
+            'poster_url'=>'nullable|image|mimes:jpg,jpeg,png,gif|max:2048'
 
             ]);
     
@@ -49,6 +51,12 @@ class FilmController extends Controller
             $film->deskripsi = $request->deskripsi;
             $film->tahun_rilis = $request->tahun_rilis;
             $film->rating = $request->rating;
+
+            if ($request->hasFile('poster_url')) {
+                $poster_url = $request->file('poster_url');
+                $poster_path = $poster_url->store('poster_urls', 'public');
+                $film->poster_url = $poster_path;
+            }
             $film->save();
             return back()->with('pesan', 'Data sudah Disimpan');
     }
@@ -68,7 +76,7 @@ class FilmController extends Controller
     {
         $data['film']= \App\Models\Film::findOrFail($id);
         $data['judul']=['Umum', 'Kandungan','Anak','THT'];
-        return view('film_edit', $data);
+        return view('film.film_edit', $data);
     }
 
     /**

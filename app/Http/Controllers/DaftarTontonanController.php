@@ -14,7 +14,7 @@ class DaftarTontonanController extends Controller
     {
         $data['daftar_tontonan']= DaftarTontonan::orderBy('id', 'asc')->paginate(3);
         $data['judul']="Data Daftar Tontonan";
-        return view('daftar_tontonan_index', $data);
+        return view('daftar_tontonan.daftar_tontonan_index', $data);
     }
 
     /**
@@ -24,7 +24,7 @@ class DaftarTontonanController extends Controller
     {
         
         $data['list_status']=['Sedang Menonton', 'Selesai'];
-        return view('daftar_tontonan_create', $data);
+        return view('daftar_tontonan.daftar_tontonan_create', $data);
     }
 
     /**
@@ -61,7 +61,7 @@ class DaftarTontonanController extends Controller
     {
         $data['daftar_tontonan']= \App\Models\DaftarTontonan::findOrFail($id);
         $data['list_status']=['Sedang Menonton', 'Selesai'];
-        return view('daftartontonan_edit', $data);
+        return view('daftar_tontonan.daftartontonan_edit', $data);
     }
 
     /**

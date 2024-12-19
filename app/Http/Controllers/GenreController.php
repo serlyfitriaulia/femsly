@@ -14,7 +14,7 @@ class GenreController extends Controller
     {
         $data['genre']= Genre::orderBy('id', 'asc')->paginate(3);
         $data['nama']="Nama Genre";
-        return view('genre_index', $data);
+        return view('genre.genre_index', $data);
 
     }
 
@@ -25,6 +25,8 @@ class GenreController extends Controller
     {
         $data['list_genre'] = \App\Models\Genre::selectRaw("id, concat(nama) as
         tampil")->pluck('tampil', 'id');
+
+        return view('genre.genre_create', $data);
         
     }
 
@@ -33,7 +35,15 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            
+            ]);
+    
+            $Genre = new \App\Models\Genre();
+            $Genre->nama = $request->nama;
+            $Genre->save();
+            return back()->with('pesan', 'Data sudah Disimpan');
     }
 
     /**
@@ -49,7 +59,9 @@ class GenreController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['genre']= \App\Models\Genre::findOrFail($id);
+        $data['nama']= ('Nama Genre');
+        return view('genre.genre_edit', $data);
     }
 
     /**

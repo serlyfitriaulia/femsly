@@ -1,5 +1,5 @@
-@extends('layouts.sbadmin2')
-@section('isinya')
+@extends('layouts.app')
+@section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -8,16 +8,16 @@
                     Edit Film
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('film',[]) }}" method="POST">
+                    <form action="{{ url('film',[]) }}" method="POST" enctype="multipart/form-data">
 
                         @method('POST')
                         @csrf
 
                         <div class="form-group">
-                            <label for="my-input">Genre id</label>
-                            <input id="my-input" class="form-control" type="text" name="genre_id"
-                                value="{{ old('genre_id') }}">
-                                <span class="text-danger">{{ $errors->first('genre_id') }}</span>
+                            <label for="my-input">Genre </label>
+                            <input id="my-input" class="form-control" type="text" name="genre"
+                                value="{{ old('genre') }}">
+                                <span class="text-danger">{{ $errors->first('genre') }}</span>
 
                         </div>
 
@@ -55,7 +55,7 @@
 
                         <div class="form-group">
                             <label for="my-input">Poster Url</label>
-                            <input id="my-input" class="form-control" type="text" name="poster_url"
+                            <input id="my-input" class="form-control" type="file" name="poster_url"
                                 value="{{ old('poster_url') }}">
                                 <span class="text-danger">{{ $errors->first('poster_url') }}</span>
 

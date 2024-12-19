@@ -1,11 +1,11 @@
-@extends('layouts.sbadmin2')
-@section('isinya')
+@extends('layouts.app')
+@section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Tambah Film Aktor
+                    Edit Film Aktor
                 </div>
                 <div class="card-body">
                     <form action="{{ url('film_aktor',[]) }}" method="POST">
@@ -13,6 +13,7 @@
                         @method('POST')
                         @csrf
 
+                      
                         <div class="form-group">
                             <label for="my-input">Id Film</label>
                             <input id="my-input" class="form-control" type="text" name="id_film"
@@ -30,7 +31,7 @@
                         </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
                 </form>
             </div>

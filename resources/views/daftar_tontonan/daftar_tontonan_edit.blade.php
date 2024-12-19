@@ -1,14 +1,14 @@
-@extends('layouts.sbadmin2')
-@section('isinya')
+@extends('layouts.app')
+@section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Tambah Ulasan
+                    Edit Daftar Tontonan
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('ulasan',[]) }}" method="POST">
+                    <form action="{{ url('daftar_tontonan',[]) }}" method="POST">
 
                         @method('POST')
                         @csrf
@@ -30,22 +30,28 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="my-input">Rating</label>
-                            <input id="my-input" class="form-control" type="text" name="rating"
-                                value="{{ old('rating') }}">
-                                <span class="text-danger">{{ $errors->first('rating') }}</span>
+                            <label for="my-input">Deskripsi</label>
+                            <input id="my-input" class="form-control" type="text" name="deskripsi"
+                                value="{{ old('deskripsi') }}">
+                                <span class="text-danger">{{ $errors->first('deskripsi') }}</span>
 
                         </div>
 
                         <div class="form-group">
-                            <label for="my-input">Komentar</label>
-                            <input id="my-input" class="form-control" type="text" name="komentar"
-                                value="{{ old('komentar') }}">
-                                <span class="text-danger">{{ $errors->first('rating') }}</span>
+                            <label for="my-select">Status</label>
+                            <select id="my-select" class="form-control" name="status">
+                                @foreach ($list_sp as $a)
+                                <option value="{{ $a }}" @selected($a==old('status'))>{{ $a }}
+                                </option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger">{{ $errors->first('status') }}</span>
 
                         </div>
+
+                </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
                 </form>
             </div>

@@ -14,7 +14,7 @@ class AktorController extends Controller
     {
         $data['aktor']= Aktor::orderBy('id', 'asc')->paginate(3);
         $data['judul']="Data Aktor";
-        return view('aktor_index', $data);
+        return view('aktor.aktor_index', $data);
 
     }
 
@@ -24,7 +24,7 @@ class AktorController extends Controller
     public function create()
     {
         $data['list_genre']=['Action', 'Mystery','Romance','Horor','Comedy','Fantasy','Family','Thriller','Drama'];
-        return view('Aktor_create', $data);
+        return view('aktor.Aktor_create', $data);
     }
 
     /**
@@ -62,7 +62,7 @@ class AktorController extends Controller
     {
         $data['aktor']= \App\Models\Aktor::findOrFail($id);
         $data['list_genre']=['Action', 'Mystery','Romance','Horor','Comedy','Fantasy','Family','Thriller','Drama'];
-        return view('aktor_edit', $data);
+        return view('aktor.aktor_edit', $data);
     }
 
     /**

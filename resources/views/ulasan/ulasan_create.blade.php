@@ -1,11 +1,11 @@
-@extends('layouts.sbadmin2')
-@section('isinya')
+@extends('layouts.app')
+@section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Edit Ulasan
+                    Tambah Ulasan
                 </div>
                 <div class="card-body">
                     <form action="{{ url('ulasan',[]) }}" method="POST">
@@ -45,7 +45,7 @@
 
                         </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
                 </form>
             </div>

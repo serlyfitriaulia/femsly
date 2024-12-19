@@ -23,7 +23,7 @@
 
                         <div class="form-group">
                             <label for="my-input">Tanggal Lahir</label>
-                            <input id="my-input" class="form-control" type="text" name="tanggal_lahir"
+                            <input id="my-input" class="form-control" type="date" name="tanggal_lahir"
                                 value="{{ old('tanggal_lahir') }}">
                                 <span class="text-danger">{{ $errors->first('tanggal_lahir') }}</span>
 

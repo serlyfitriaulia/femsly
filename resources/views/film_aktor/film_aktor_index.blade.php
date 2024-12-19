@@ -11,30 +11,22 @@
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>GENRE ID</th>
-                                <th>JUDUL </th>
-                                <th>DESKRIPSI </th>
-                                <th>TAHUN RILIS </th>
-                                <th>RATING  </th>
-                                <th>POSTER  </th>
+                                <th>Film</th>
+                                <th>AKTOR </th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($film as $a)
+                            @foreach ($film_aktor as $a)
                             <tr>
-                                <td>{{ $a->genre_id }}</td>
-                                <td>{{ $a->judul }}</td>
-                                <td>{{ $a->deskripsi }}</td>
-                                <td>{{ $a->tahun_rilis }}</td>
-                                <td>{{ $a->rating }}</td>
-                                <td>{{ $a->poster }}</td>
+                                <td>{{ $a->film->judul }}</td>
+                                <td>{{ $a->aktor->nama }}</td>
                                 <td>{{ $a->created_at }}</td>
                                 <td> 
-                                    <a href="{{ url('film/'.$a->id.'/edit', []) }}"
+                                    <a href="{{ url('film_aktor/'.$a->id.'/edit', []) }}"
                                         class="btn btn-primary btn-sm">Edit</a>
 
-                                    <form action="{{ url('film/'.$a->id, []) }}" method="post" class="d-inline"
+                                    <form action="{{ url('film_aktor/'.$a->id, []) }}" method="post" class="d-inline"
                                         onsubmit="return confirm('Apakah Dihapus?')">
                                         @method('delete')
                                         @csrf
@@ -49,7 +41,7 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    {{ $film->links() }}
+                    {{ $film_aktor->links() }}
                 </div>
             </div>
         </div>

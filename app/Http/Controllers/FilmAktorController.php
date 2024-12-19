@@ -13,8 +13,8 @@ class FilmAktorController extends Controller
     public function index()
     {
         $data['film_aktor']= FilmAktor::orderBy('id', 'asc')->paginate(3);
-        $data['judul']="Data Film Aktor";
-        return view('film_aktor_index', $data);
+        $data['judul']='Daftar Film-Aktor';
+        return view('film_aktor.film_aktor_index', $data);
     }
 
     /**
@@ -22,10 +22,12 @@ class FilmAktorController extends Controller
      */
     public function create()
     {
-        $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as
+        $data['list_film'] = \App\Models\Film::selectRaw("id, judul as
         tampil")->pluck('tampil', 'id');
-        $data['list_aktor'] = \App\Models\Aktor::selectRaw("id, concat(judul) as
+        $data['list_aktor'] = \App\Models\Aktor::selectRaw("id, nama as
         tampil")->pluck('tampil', 'id');
+
+        return view('film_aktor.film_aktor_create', $data);
         
     }
 
@@ -34,15 +36,14 @@ class FilmAktorController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'judul' => 'required',
             'id_film' => 'required',
             'id_aktor' => 'required',
             
             ]);
     
             $film_aktor = new \App\Models\FilmAktor();
-            $film_aktor->judul = $request->judul;
             $film_aktor->id_film = $request->id_aktor;
             $film_aktor->save();
             return back()->with('pesan', 'Data sudah Disimpan');
@@ -63,7 +64,7 @@ class FilmAktorController extends Controller
     {
         $data['film_aktor']= \App\Models\FilmAktor::findOrFail($id);
        
-        return view('film_aktor_edit', $data);
+        return view('film_aktor.film_aktor_edit', $data);
     }
 
     /**
@@ -71,7 +72,16 @@ class FilmAktorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_film' => 'required',
+            'id_aktor' => 'required',
+            
+            ]);
+    
+            $film_aktor = new \App\Models\FilmAktor();
+            $film_aktor->id_film = $request->id_aktor;
+            $film_aktor->save();
+            return redirect('/film aktor')->with('pesan','Data sudah Diupdate');
     }
 
     /**
@@ -79,6 +89,8 @@ class FilmAktorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $film_aktor= \App\Models\FilmAktor::findOrFail($id);
+        $film_aktor->delete();
+        return back()->with('pesan','Data Sudah Dihapus');
     }
 }
