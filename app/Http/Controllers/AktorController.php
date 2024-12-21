@@ -36,14 +36,24 @@ class AktorController extends Controller
             'nama' => 'required',
             'tanggal_lahir' => 'required',
             'bio' => 'required',
-            'foto_url' => 'required',
+            'foto_url'=>'nullable|image|mimes:jpg,jpeg,png,gif|max:2048'
+            
+
             ]);
     
-            $dokter = new \App\Models\Aktor();
-            $dokter->nama = $request->nama;
-            $dokter->tanggal_lahir = $request->tanggal_lahir;
-            $dokter->bio = $request->bio;
-            $dokter->save();
+            $aktor = new \App\Models\Aktor();
+            $aktor->nama = $request->nama;
+            $aktor->tanggal_lahir = $request->tanggal_lahir;
+            $aktor->bio = $request->bio;
+            $aktor->foto_url=$request->foto_url;
+
+            if ($request->hasFile('foto_url')) {
+                $foto_url = $request->file('foto_url');
+                $foto_path = $foto_url->store('foto_url', 'public');
+                $aktor->foto_url = $foto_path;
+            }
+
+            $aktor->save();
             return back()->with('pesan', 'Data sudah Disimpan');
     }
 
@@ -73,17 +83,26 @@ class AktorController extends Controller
         $request->validate([
             'nama' => 'required',
             'tanggal_lahir' => 'required',
-            'bio' => 'required'
+            'bio' => 'required',
+            'poster_url'=>'nullable|image|mimes:jpg,jpeg,png,gif|max:2048'
             
-        ]);
-        $aktor = \App\Models\Aktor::findOrFail($id);
-        $aktor->nama = $request->nama;
-        $aktor->tanggal_lahir = $request->tanggal_lahir;
-        $aktor->bio = $request->bio;
-        $aktor->foto_url = $request->foto_url;
-        $aktor->save();
 
-        return redirect('/aktor')->with('pesan','Data sudah Diupdate');
+            ]);
+    
+            $aktor = new \App\Models\Aktor();
+            $aktor->nama = $request->nama;
+            $aktor->tanggal_lahir = $request->tanggal_lahir;
+            $aktor->bio = $request->bio;
+            $aktor->foto_url=$request->foto_url;
+
+            if ($request->hasFile('foto_url')) {
+                $foto_url = $request->file('foto_url');
+                $foto_path = $foto_url->store('foto_url', 'public');
+                $aktor->foto_url = $foto_path;
+            }
+
+            $aktor->save();
+            return redirect ('/aktor')->with('pesan', 'Data sudah DiUpdate');
     }
 
     /**

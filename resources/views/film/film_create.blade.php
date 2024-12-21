@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Tambah Film
@@ -12,7 +12,7 @@
 
                         @method('POST')
                         @csrf
-
+                        
                         <div class="form-group">
                             <label for="my-select">Genre</label>
                             <select id="my-select" class="form-control" name="genre_id">

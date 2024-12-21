@@ -69,7 +69,17 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'genre' => 'required',
+            'nama' => 'required'
+            
+        ]);
+        $genre = \App\Models\Genre::findOrFail($id);
+        $genre->genre = $request->genre;
+        $genre->nama = $request->nama;
+        $genre->save();
+
+        return redirect('/genre')->with('pesan','Data sudah Diupdate');
     }
 
     /**
@@ -77,6 +87,8 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $genre= \App\Models\Genre::findOrFail($id);
+        $genre->delete();
+        return back()->with('pesan','Data Sudah Dihapus');
     }
 }

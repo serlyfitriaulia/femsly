@@ -51,10 +51,11 @@ class FilmController extends Controller
             $film->deskripsi = $request->deskripsi;
             $film->tahun_rilis = $request->tahun_rilis;
             $film->rating = $request->rating;
+            $film->poster_url=$request->poster_url;
 
             if ($request->hasFile('poster_url')) {
                 $poster_url = $request->file('poster_url');
-                $poster_path = $poster_url->store('poster_urls', 'public');
+                $poster_path = $poster_url->store('poster_url', 'public');
                 $film->poster_url = $poster_path;
             }
             $film->save();
@@ -75,7 +76,8 @@ class FilmController extends Controller
     public function edit(string $id)
     {
         $data['film']= \App\Models\Film::findOrFail($id);
-        $data['judul']=['Umum', 'Kandungan','Anak','THT'];
+        $data['list_genre'] = \App\Models\Genre::selectRaw("id, concat(nama) as
+        tampil")->pluck('tampil', 'id');
         return view('film.film_edit', $data);
     }
 
@@ -84,14 +86,44 @@ class FilmController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $request->validate([
+            'genre_id' => 'required',
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'tahun_rilis' => 'required',
+            'rating' => 'required',
+            'poster_url'=>'nullable|image|mimes:jpg,jpeg,png,gif|max:2048'
 
+            ]);
+    
+            $film = \App\Models\Film::findOrFail($id);
+            $film->genre_id = $request->genre_id;
+            $film->judul = $request->judul;
+            $film->deskripsi = $request->deskripsi;
+            $film->tahun_rilis = $request->tahun_rilis;
+            $film->rating = $request->rating;
+            $film->poster_url=$request->poster_url;
+
+            if ($request->hasFile('poster_url')) {
+                if ($film->poster_url) {
+                    Storage::delete('public/' . $film->poster_url);
+                }
+                $poster_url = $request->file('poster_url');
+                $poster_path = $poster_url->store('poster_urls', 'public');
+                $film->poster_url = $poster_path; 
+            }
+            $film->save();
+
+            return redirect('/film')->with('pesan', 'Data sudah DiUpdate');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $film= \App\Models\Film::findOrFail($id);
+        $film->delete();
+        return back()->with('pesan','Data Sudah Dihapus');
     }
+    
 }

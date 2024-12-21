@@ -2,13 +2,13 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Tambah Aktor
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('aktor',[]) }}" method="POST">
+                    <form action="{{ url('aktor',[]) }}" method="POST" enctype="multipart/form-data">
 
                         @method('POST')
                         @csrf
@@ -39,7 +39,7 @@
 
                         <div class="form-group">
                             <label for="my-input">Foto Url</label>
-                            <input id="my-input" class="form-control" type="text" name="foto_url"
+                            <input id="my-input" class="form-control" type="file" name="foto_url"
                                 value="{{ old('foto_url') }}">
                                 <span class="text-danger">{{ $errors->first('foto_url') }}</span>
 

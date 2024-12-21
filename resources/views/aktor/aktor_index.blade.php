@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     {{ $judul }}
@@ -24,8 +24,14 @@
                                 <td>{{ $a->nama }}</td>
                                 <td>{{ $a->tanggal_lahir }}</td>
                                 <td>{{ $a->bio }}</td>
-                                <td>{{ $a->foto_url }}</td>
-                                <td>{{ $a->created_at }}</td>
+                                
+                                <td class="text-center">
+                                    @if($a->foto_url)
+                                        <img src="{{ asset('storage/' .$a->foto_url) }}" alt="Foto Kamar" style="max-width: 100px; height: auto;">
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td> 
                                     <a href="{{ url('aktor/'.$a->id.'/edit', []) }}"
                                         class="btn btn-primary btn-sm">Edit</a>
