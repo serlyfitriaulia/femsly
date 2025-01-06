@@ -24,6 +24,10 @@ class UlasanController extends Controller
     public function create()
     {
         $data['list_rating']=['1','2','3','4','5'];
+        $data['list_user'] = \App\Models\User::selectRaw("id, concat(name) as
+        tampil")->pluck('tampil', 'id');
+        $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as
+        tampil")->pluck('tampil', 'id');
         return view('ulasan.ulasan_create', $data);
     }
 
@@ -36,10 +40,10 @@ class UlasanController extends Controller
             'user_id' => 'required',
             'film_id' => 'required',
             'rating' => 'required',
-            'komentar' => 'required',
+            'komentar' => 'required'
             ]);
     
-            $ulasan = new \App\Models\Aktor();
+            $ulasan = new \App\Models\Ulasan();
             $ulasan->user_id = $request->user_id;
             $ulasan->film_id = $request->film_id;
             $ulasan->rating = $request->rating;
@@ -63,6 +67,10 @@ class UlasanController extends Controller
     public function edit(string $id)
     {
         $data['ulasan']= \App\Models\Ulasan::findOrFail($id);
+        $data['list_user'] = \App\Models\User::selectRaw("id, concat(name) as
+        tampil")->pluck('tampil', 'id');
+        $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as
+        tampil")->pluck('tampil', 'id');
         $data['list_rating']=['1', '2', '3', '4', '5'];
         return view('ulasan.ulasan_edit', $data);
     }

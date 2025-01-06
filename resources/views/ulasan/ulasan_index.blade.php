@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('content')
+@extends('layouts.admin')
+@section('admin')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -21,11 +21,10 @@
                         <tbody>
                             @foreach ($ulasan as $a)
                             <tr>
-                                <td>{{ $a->id_pengguna }}</td>
-                                <td>{{ $a->id_film }}</td>
+                                <td>{{ $a->user->name }}</td>
+                                <td>{{ $a->film->judul }}</td>
                                 <td>{{ $a->rating }}</td>
                                 <td>{{ $a->komentar }}</td>
-                                <td>{{ $a->created_at }}</td>
                                 <td> 
                                     <a href="{{ url('ulasan/'.$a->id.'/edit', []) }}"
                                         class="btn btn-primary btn-sm">Edit</a>

@@ -1,10 +1,10 @@
-@extends('layouts.app')
-@section('content')
+@extends('layouts.admin')
+@section('admin')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-center font-weight-bold" style="background-color:#3D3D3D; color: white">
                     Edit Film
                 </div>
                 <div class="card-body">
@@ -67,7 +67,7 @@
                         </div>
 
                 </div>
-                <div class="card-footer">
+                <div class="card-footer" style="background-color:#3D3D3D">
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
                 </form>

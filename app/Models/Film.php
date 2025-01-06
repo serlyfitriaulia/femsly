@@ -13,4 +13,20 @@ class Film extends Model
     {
         return $this->belongsTo(Genre::class)->withDefault();
     }
+
+    public function ulasan()
+    {
+        return $this->hasMany(Ulasan::class);
+    }
+
+    public function film_aktor()
+    {
+        return $this->belongsTo(FilmAktor::class)->withDefault();
+    }
+
+    public function daftar_tontonan()
+    {
+        return $this->hasMany(DaftarTontonan::class);
+    }
+
 }
