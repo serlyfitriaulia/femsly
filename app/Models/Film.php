@@ -21,7 +21,7 @@ class Film extends Model
 
     public function film_aktor()
     {
-        return $this->belongsTo(FilmAktor::class)->withDefault();
+        return $this->hasMany(FilmAktor::class);
     }
 
     public function daftar_tontonan()

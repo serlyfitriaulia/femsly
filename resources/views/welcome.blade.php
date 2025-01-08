@@ -12,7 +12,7 @@
 <!-- START PAGE SOURCE -->
 <div id="shell">
   <div id="header">
-    <h1 id="logo"><a href="#">MovieHunter</a></h1>
+    <h1 id="logo"><a href="#">pppppppp</a></h1>
     <div class="social"> <span>FOLLOW US ON:</span>
       <ul>
         <li><a class="twitter" href="#">twitter</a></li>

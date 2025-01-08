@@ -12,11 +12,11 @@ class FilmAktor extends Model
 
     public function film()
     {
-        return $this->belongsTo('Film')->withDefault();
+        return $this->belongsTo('Films')->withDefault();
     }
 
     public function aktor() 
     {
-        return $this->belongsTo('aktor_id')->withDefault();
+        return $this->belongsTo('Aktor')->withDefault();
     }
 }

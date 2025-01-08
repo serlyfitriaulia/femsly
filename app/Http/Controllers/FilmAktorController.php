@@ -74,7 +74,7 @@ class FilmAktorController extends Controller
     {
         $request->validate([
             'id_film' => 'required',
-            'id_aktor' => 'required',
+            'id_aktor' => 'required'
             
             ]);
     
