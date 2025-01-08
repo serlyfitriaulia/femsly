@@ -191,8 +191,8 @@
             </a>
             <div class="collapse" id="ui-basic1">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="{{ url('transaksi',[]) }}">Pembayaran</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="{{ url('transaksi/create',[]) }}">Tambah Pembayaran</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{ url('transaksi',[]) }}">Transaksi</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{ url('transaksi/create',[]) }}">Tambah </a></li>
                 </ul>
               </div>
           </li>
@@ -333,14 +333,20 @@
                   </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                      <div class="preview-icon bg-dark rounded-circle">
-                        <i class="mdi mdi-logout text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="preview-item-content">
-                      <p class="preview-subject mb-1">Log out</p>
-                    </div>
+                    
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();">
+                                  <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                      <i class="mdi mdi-logout text-danger"></i>
+                                    </div>
+                                  </div>
+                         Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                   </a>
                   <div class="dropdown-divider"></div>
                   <p class="p-3 mb-0 text-center">Advanced settings</p>

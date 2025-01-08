@@ -14,7 +14,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="my-input">Id Pengguna</label>
+                            <label for="my-input">Pengguna</label>
                             <input id="my-input" class="form-control" type="text" name="id_pengguna"
                                 value="{{ old('id_pengguna') }}">
                                 <span class="text-danger">{{ $errors->first('id_pengguna') }}</span>
@@ -22,20 +22,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="my-input">Id Film</label>
+                            <label for="my-input">Film</label>
                             <input id="my-input" class="form-control" type="text" name="id_film"
                                 value="{{ old('id_film') }}">
                                 <span class="text-danger">{{ $errors->first('id_film') }}</span>
 
                         </div>
 
-                        <div class="form-group">
-                            <label for="my-input">Deskripsi</label>
-                            <input id="my-input" class="form-control" type="text" name="deskripsi"
-                                value="{{ old('deskripsi') }}">
-                                <span class="text-danger">{{ $errors->first('deskripsi') }}</span>
-
-                        </div>
 
                         <div class="form-group">
                             <label for="my-select">Status</label>

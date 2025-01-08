@@ -22,7 +22,6 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        $data['list_id']=['1','2','3','4','5'];
         $data['list_user'] = \App\Models\User::selectRaw("id, concat(name) as tampil")->pluck('tampil', 'id');
         $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as tampil")->pluck('tampil', 'id');
         $data['list_jenis']=['pembelian','penyewaan','langganan'];
@@ -38,34 +37,38 @@ class TransaksiController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'user_id' => 'required',
-            'film_id' => 'required',
-            'kode_transaksi' => 'required',
-            'jenis_transaksi' => 'required',
-            'jumlah' => 'required',
-            'total_harga' => 'required',
-            'tanggal_transaksi' => 'required',
-            'status' => 'required'
+{
+    $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'film_id' => 'required|exists:films,id',
+        'kode_transaksi' => 'required|unique:transaksis,kode_transaksi',
+        'jenis_transaksi' => 'required',
+        'jumlah' => 'required|integer|min:1',
+        'total_harga' => 'required|numeric|min:0',
+        'tanggal_transaksi' => 'required|date',
+        'status' => 'required',
+    ]);
+    logger()->info('Data valid, melanjutkan ke penyimpanan.', $request->all());
 
 
-            ]);
-    
-            $transaksi = new \App\Models\Transaksi();
-            $transaksi->user_id = $request->user_id;
-            $transaksi->film_id = $request->film_id;
-            $transaksi->kode_transaksi = $request->kode_transaksi;
-            $transaksi->jenis_transaksi = $request->jenis_transaksi;
-            $transaksi->jumlah = $request->jumlah;
-            $transaksi->total_harga = $request->total_harga;
-            $transaksi->tanggal_transaksi = $request->tanggal_transaksi;
-            $transaksi->status = $request->status;
+    $transaksi = new \App\Models\Transaksi();
+    $transaksi->user_id = $request->user_id;
+    $transaksi->film_id = $request->film_id;
+    $transaksi->kode_transaksi = $request->kode_transaksi;
+    $transaksi->jenis_transaksi = $request->jenis_transaksi;
+    $transaksi->jumlah = $request->jumlah;
+    $transaksi->total_harga = $request->total_harga;
+    $transaksi->tanggal_transaksi = $request->tanggal_transaksi;
+    $transaksi->status = $request->status;
 
+    $transaksi = new \App\Models\Transaksi();
+    $transaksi->fill($request->all());
+    $transaksi->save();
 
-            $transaksi->save();
-            return back()->with('pesan', 'Data sudah Disimpan');
-    }
+    return back()->with('pesan', 'Data sudah Disimpan');
+
+}
+
 
     /**
      * Display the specified resource.
@@ -80,9 +83,9 @@ class TransaksiController extends Controller
      */
     public function edit(string $id)
     {
-        $data['list_id']=['1','2','3','4','5'];
-        $data['list_user'] = \App\Models\User::selectRaw("id, concat(name) as tampil")->pluck('tampil', 'id');
-        $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as tampil")->pluck('tampil', 'id');
+        // Controller
+        $data['list_user'] = \App\Models\User::pluck('name', 'id');
+        $data['list_film'] = \App\Models\Film::pluck('judul', 'id');
         $data['list_jenis']=['pembelian','penyewaan','langganan'];
         $data['list_status']=['berhasil','pending','gagal'];
 
@@ -96,8 +99,8 @@ class TransaksiController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'user_id' => 'required',
-            'film_id' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'film_id' => 'required|exists:films,id',
             'kode_transaksi' => 'required',
             'jenis_transaksi' => 'required',
             'jumlah' => 'required',
@@ -117,8 +120,7 @@ class TransaksiController extends Controller
             $transaksi->total_harga = $request->total_harga;
             $transaksi->tanggal_transaksi = $request->tanggal_transaksi;
             $transaksi->status = $request->status;
-
-
+            
             $transaksi->save();
             return back()->with('pesan', 'Data sudah Diubah');
     }

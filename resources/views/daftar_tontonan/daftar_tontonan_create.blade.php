@@ -9,55 +9,51 @@
                 </div>
                 <div class="card-body">
                     <form action="{{ url('daftar_tontonan',[]) }}" method="POST">
-
                         @method('POST')
                         @csrf
 
                         <div class="form-group">
-                            <label for="my-input">Id Pengguna</label>
-                            <input id="my-input" class="form-control" type="text" name="id_pengguna"
-                                value="{{ old('id_pengguna') }}">
-                                <span class="text-danger">{{ $errors->first('id_pengguna') }}</span>
-
+                            <label for="user_id">Pengguna</label>
+                            <select id="user_id" class="form-control" name="user_id">
+                                <option value="">Pilih Pengguna</option>
+                                @foreach ($list_user as $id => $name)
+                                    <option value="{{ $id }}" @selected($id == old('user_id'))>{{ $name }}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger">{{ $errors->first('user_id') }}</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="my-input">Id Film</label>
-                            <input id="my-input" class="form-control" type="text" name="id_film"
-                                value="{{ old('id_film') }}">
-                                <span class="text-danger">{{ $errors->first('id_film') }}</span>
-
+                            <label for="film_id">Film</label>
+                            <select id="film_id" class="form-control" name="film_id">
+                                <option value="">Pilih Film</option>
+                                @foreach ($list_film as $id => $judul)
+                                    <option value="{{ $id }}" @selected($id == old('film_id'))>{{ $judul }}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger">{{ $errors->first('film_id') }}</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="my-input">Deskripsi</label>
-                            <input id="my-input" class="form-control" type="text" name="deskripsi"
-                                value="{{ old('deskripsi') }}">
-                                <span class="text-danger">{{ $errors->first('deskripsi') }}</span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="my-select">Status</label>
-                            <select id="my-select" class="form-control" name="status">
-                                @foreach ($list_status as $a)
-                                <option value="{{ $a }}" @selected($a==old('status'))>{{ $a }}
-                                </option>
+                            <label for="status">Status</label>
+                            <select id="status" class="form-control" name="status">
+                                @foreach ($list_status as $status)
+                                    <option value="{{ $status }}" @selected($status == old('status'))>{{ $status }}</option>
                                 @endforeach
                             </select>
                             <span class="text-danger">{{ $errors->first('status') }}</span>
-
                         </div>
 
                 </div>
+
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
-                </form>
-            </div>
+                    </form>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 </div>
 @endsection

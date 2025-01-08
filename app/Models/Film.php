@@ -29,4 +29,9 @@ class Film extends Model
         return $this->hasMany(DaftarTontonan::class);
     }
 
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
 }

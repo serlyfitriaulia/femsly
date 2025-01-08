@@ -11,9 +11,10 @@
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>KODE TRANSAKSI</th>
+                                
                                 <th>PENGGUNA</th>
                                 <th>FILM </th>
+                                <th>KODE TRANSAKSI</th>
                                 <th>JENIS TRANSAKSI </th>
                                 <th>JUMLAH </th>
                                 <th>TOTAL </th>
@@ -25,15 +26,20 @@
                         <tbody>
                             @foreach ($transaksi as $a)
                             <tr>
+                                                              
                                 <td>{{ $a->user->name }}</td>
                                 <td>{{ $a->film->judul }}</td>
-                                <td>{{ $a->rating }}</td>
-                                <td>{{ $a->komentar }}</td>
+                                <td >{{ $a->kode_transaksi }}</td>  
+                                <td>{{ $a->jenis_transaksi }}</td>
+                                <td>{{ $a->jumlah }}</td>
+                                <td>{{ $a->total_harga }}</td>
+                                <td>{{ $a->tanggal_transaksi }}</td>
+                                <td>{{ $a->status }}</td>
                                 <td> 
-                                    <a href="{{ url('ulasan/'.$a->id.'/edit', []) }}"
+                                    <a href="{{ url('transaksi/'.$a->id.'/edit', []) }}"
                                         class="btn btn-primary btn-sm">Edit</a>
 
-                                    <form action="{{ url('ulasan/'.$a->id, []) }}" method="post" class="d-inline"
+                                    <form action="{{ url('transaksi/'.$a->id, []) }}" method="post" class="d-inline"
                                         onsubmit="return confirm('Apakah Dihapus?')">
                                         @method('delete')
                                         @csrf
@@ -48,7 +54,7 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    {{ $ulasan->links() }}
+                    {{ $transaksi->links() }}
                 </div>
             </div>
         </div>

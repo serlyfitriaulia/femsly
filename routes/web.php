@@ -8,8 +8,9 @@ use App\Http\Controllers\FilmAktorController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\UlasanController;
+use App\Http\Controllers\TransaksiController;
 use App\Models\DaftarTontonan;
-
+use App\Models\Transaksi;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +37,8 @@ Route::resource('film_aktor', FilmAktorController::class);
 Route::resource('film', FilmController::class);
 Route::resource('genre', GenreController::class);
 Route::resource('ulasan', UlasanController::class);
+Route::resource('transaksi', TransaksiController::class);
+
+
 
 });

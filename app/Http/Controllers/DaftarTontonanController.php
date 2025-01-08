@@ -22,7 +22,8 @@ class DaftarTontonanController extends Controller
      */
     public function create()
     {
-        
+        $data['list_user'] = \App\Models\User::selectRaw("id, concat(name) as tampil")->pluck('tampil', 'id');
+        $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as tampil")->pluck('tampil', 'id');
         $data['list_status']=['Sedang Menonton', 'Selesai'];
         return view('daftar_tontonan.daftar_tontonan_create', $data);
     }
@@ -32,19 +33,24 @@ class DaftarTontonanController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the incoming data
         $request->validate([
-            'daftar_tontonan' => 'required',
-            'judul' => 'required',
+            'user_id' => 'required|exists:users,id', // Ensure user_id exists in the users table
+            'film_id' => 'required',
             'status' => 'required'
-            ]);
+        ]);
     
-            $daftar_tontonan = new \App\Models\DaftarTontonan();
-            $daftar_tontonan->daftar_tontonan = $request->daftar_tontonan;
-            $daftar_tontonan->judul = $request->judul;
-            $daftar_tontonan->status = $request->status;
-            $daftar_tontonan->save();
-            return back()->with('pesan', 'Data sudah Disimpan');
+        // Store the data
+        $daftar_tontonan = new \App\Models\DaftarTontonan();
+        $daftar_tontonan->user_id = $request->user_id; // Assuming user_id is an integer
+        $daftar_tontonan->film_id = $request->film_id;
+        $daftar_tontonan->status = $request->status;
+        $daftar_tontonan->save();
+    
+        // Return success message
+        return back()->with('pesan', 'Data sudah Disimpan');
     }
+    
 
     /**
      * Display the specified resource.
@@ -59,6 +65,8 @@ class DaftarTontonanController extends Controller
      */
     public function edit(string $id)
     {
+        $data['list_user'] = \App\Models\User::selectRaw("id, concat(name) as tampil")->pluck('tampil', 'id');
+        $data['list_film'] = \App\Models\Film::selectRaw("id, concat(judul) as tampil")->pluck('tampil', 'id');
         $data['daftar_tontonan']= \App\Models\DaftarTontonan::findOrFail($id);
         $data['list_status']=['Sedang Menonton', 'Selesai'];
         return view('daftar_tontonan.daftartontonan_edit', $data);
@@ -70,13 +78,13 @@ class DaftarTontonanController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'daftar_tontonan' => 'required',
-            'judul' => 'required',
+            'user_id' => 'required',
+            'film_id' => 'required',
             'status' => 'required'
         ]);
         $daftar_tontonan = \App\Models\DaftarTontonan::findOrFail($id);
-        $daftar_tontonan->daftar_tontonan = $request->daftar_tontonan;
-        $daftar_tontonan->judul = $request->judul;
+        $daftar_tontonan->user_id = $request->user_id;
+        $daftar_tontonan->film_id = $request->film_id;
         $daftar_tontonan->status = $request->status;
         $daftar_tontonan->save();
 

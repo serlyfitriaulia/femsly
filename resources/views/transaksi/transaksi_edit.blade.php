@@ -5,13 +5,15 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Edit Ulasan
+                    Edit Transaksi
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('ulasan',[]) }}" method="POST">
+                    <form action="{{ url('transaksi',[]) }}" method="POST">
 
                         @method('POST')
                         @csrf
+
+                    
 
                         <div class="form-group">
                             <label for="my-select">Pengguna</label>
@@ -36,41 +38,41 @@
                                 @endforeach
                             </select>
                             <span class="text-danger">{{ $errors->first('film_id') }}</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="my-input">Kode Transaksi</label>
+                            <input id="my-input" class="form-control" type="text" name="kode_transaksi"
+                                value="{{ old('kode_transaksi') }}">
+                                <span class="text-danger">{{ $errors->first('kode_transaksi') }}</span>
 
                         </div>
 
                         <div class="form-group">
-                            <label for="my-select">Transaksi</label>
-                            <select id="my-select" class="form-control" name="kode_transaksi">
-                                <option value="">Pilih Transaksi</option>
-                                @foreach ($list_transaksi as $id => $a)
-                                <option value="{{ $id }}" @selected($id==old('kode_transaksi'))>{{ $a }}
+                            <label for="my-select">Jenis Transaksi</label>
+                            <select id="my-select" class="form-control" name="jenis_transaksi">
+                                <option value="">Pilih Jenis</option>
+                                @foreach ($list_jenis as $id => $a)
+                                <option value="{{ $id }}" @selected($id==old('jenis_transaksi'))>{{ $a }}
                                 </option>
                                 @endforeach
                             </select>
-                            <span class="text-danger">{{ $errors->first('kode_transaksi') }}</span>
-
+                            <span class="text-danger">{{ $errors->first('jenis_transaksi') }}</span>
                         </div>
 
-
                         <div class="form-group">
-                            <label for="my-select">Jumlah</label>
-                            <select id="my-select" class="form-control" name="jumlah">
-                                <option value="">Pilih Jumlah</option>
-                                @foreach ($list_jumlah as $id => $a)
-                                <option value="{{ $id }}" @selected($id==old('jumlah'))>{{ $a }}
-                                </option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger">{{ $errors->first('jumlah') }}</span>
+                            <label for="my-input">Jumlah</label>
+                            <input id="my-input" class="form-control" type="number" name="jumlah"
+                                value="{{ old('jumlah') }}">
+                                <span class="text-danger">{{ $errors->first('jumlah') }}</span>
 
                         </div>
 
                         <div class="form-group">
-                            <label for="my-input">Total</label>
-                            <input id="my-input" class="form-control" type="number" name="total"
-                                value="{{ old('total') }}">
-                                <span class="text-danger">{{ $errors->first('total') }}</span>
+                            <label for="my-input">Total Harga</label>
+                            <input id="my-input" class="form-control" type="number" name="total_harga"
+                                value="{{ old('total_harga') }}">
+                                <span class="text-danger">{{ $errors->first('total_harga') }}</span>
 
                         </div>
 
